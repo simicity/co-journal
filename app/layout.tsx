@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
@@ -15,7 +16,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className="flex justify-between mx-10 my-6">
+          <div className="font-extrabold text-white text-xl">
+            Co-Journal
+          </div>
+          <div>
+            <nav className="text-slate-600 dark:text-slate-300">
+              <Link href="/" className="mx-6">write</Link>
+              <Link href="/entries" className="mx-6">entries</Link>
+            </nav>
+          </div>
+        </header>
+        {children}
+      </body>
     </html>
   )
 }
