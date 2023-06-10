@@ -1,3 +1,18 @@
+# Co-Journal
+
+<img src="public/Screenshot.png" width="600px">
+
+AI-powered prompted journal
+
+## Key Features
+
+- AI provides journaling prompts
+- Submitted entries are stored in DB
+
+## Tech Stacks
+
+Next.js, React, TailwindCSS, PostgreSQL, Prisma, and [Cohere](https://cohere.com/)'s LLM API (`/generate`)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -32,3 +47,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Roadmap
+
+- User account functionalities
+- Enhanced editing functionalities (edit, delete)
+- Entry management functionalities (sort, search)
