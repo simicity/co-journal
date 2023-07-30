@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from "next/navigation";
-import { AUTH_TOKEN } from '../../config';
+import { COHERE_TOKEN } from '../../config';
 
 const reflectionPromptOptions = {
   method: 'POST',
@@ -11,7 +11,7 @@ const reflectionPromptOptions = {
   headers: {
     accept: 'application/json',
     'content-type': 'application/json',
-    authorization: AUTH_TOKEN,
+    authorization: COHERE_TOKEN,
   },
   data: {
     max_tokens: 20,
