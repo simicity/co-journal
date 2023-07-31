@@ -10,7 +10,6 @@ export default function EntriesPage() {
   const { data: entries, error, isLoading } = useSWR(`/api/entries`, fetcher);
   if (isLoading) return <div className="m-6">loading...</div>;
   if (error) return <div className="m-6">failed to load</div>;
-  console.log(entries)
 
   return (
     <div className="grid grid-cols-3 grid-flow-row gap-8 m-8">

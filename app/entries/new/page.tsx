@@ -10,7 +10,7 @@ const reflectionPromptOptions = {
   headers: {
     accept: 'application/json',
     'content-type': 'application/json',
-    authorization: process.env.COHERE_TOKEN
+    authorization: process.env.COHERE_TOKEN,
   },
   data: {
     max_tokens: 20,
