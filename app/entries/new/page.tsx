@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from "next/navigation";
+import IconArrowRepeat from '@/components/icons/IconArrowRepeat';
 
 const reflectionPromptOptions = {
   method: 'POST',
@@ -26,8 +27,10 @@ export default function NewEntryPage() {
   const router = useRouter();
   const [reflectionPrompt, setReflectionPrompt] = useState("Fetching prompt...");
   const [content, setContent] = useState("");
+  const [isPublished, setIsPublished] = useState(false);
   const textareaDisabled = reflectionPrompt === errorMessage;
   const isDisabled = !content || textareaDisabled;
+  const [textareaHeight, setTextareaHeight] = useState(200);
 
   const handleClick = () => {
     axios
@@ -51,6 +54,7 @@ export default function NewEntryPage() {
     axios.post('/api/entries', {
       title: reflectionPrompt,
       content: content,
+      publish: isPublished
     })
     .then(function (response) {
       // console.log(response);
@@ -65,8 +69,9 @@ export default function NewEntryPage() {
     async function fetchReflectionPrompt() {
       try{
         const res = await axios.request(reflectionPromptOptions);
-        setReflectionPrompt(res.data.generations[0].text.strip());
+        setReflectionPrompt(res.data.generations[0].text.trim());
       } catch(error) {
+        console.log(error)
         setReflectionPrompt(errorMessage);
       }
     }
@@ -75,26 +80,46 @@ export default function NewEntryPage() {
     fetchReflectionPrompt();
   }, []);
 
+  useEffect(() => {
+    function handleResize() {
+      const windowHeight = window.innerHeight;
+      const containerHeight = windowHeight * 0.65;
+      const newTextareaHeight = containerHeight - 70;
+      setTextareaHeight(newTextareaHeight);
+    }
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <main className="flex h-full flex-col items-center justify-between">
-      <div className="w-3/4 bg-white dark:bg-slate-800 rounded-t-lg p-10 ring-1 ring-slate-900/5 shadow-xl">
-        <div className="flex justify-between">
-          <p className="text-slate-800 dark:text-slate-300 font-semibold">
+      <div className="w-3/4 bg-white dark:bg-slate-800 rounded-2xl p-10 ring-1 ring-slate-900/5 shadow-xl">
+        <div className="flex justify-between text-slate-800 dark:text-slate-300">
+          <p className="font-semibold">
             {reflectionPrompt}
           </p>
           <button className="ml-8 mr-4 my-auto" onClick={handleClick}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-6 h-6 stroke-1 stroke-black dark:stroke-white">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
-            </svg>
+            <IconArrowRepeat />
           </button>
         </div>
-        <hr className="w-3/4 h-1 mx-auto my-4 border-dashed rounded md:my-10 border-black dark:border-white" />
-        <div className="mt-6">
+        <hr className="h-1 w-full mx-auto border-dashed my-5 border-black dark:border-white" />
+        <div>
           <form onSubmit={handleSubmit}>
-            <textarea className="resize-none rounded-md w-full h-[32rem] p-2 focus:outline-none dark:text-slate-100 bg-inherit font-light" name="content" placeholder="Start writing here..." disabled={textareaDisabled} onChange={handleChange}></textarea>
-            <div className="flex justify-center mt-4">
+            <textarea style={{ height: `${textareaHeight}px` }} className="resize-none w-full focus:outline-none dark:text-slate-100 bg-inherit font-light" placeholder="Start writing here..." disabled={textareaDisabled} onChange={handleChange}></textarea>
+            <div className='flex justify-center mt-2'>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked={isPublished} onChange={() => setIsPublished(!isPublished)} className="sr-only peer" />
+                <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-yellow-400"></div>
+                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Share this entry</span>
+              </label>
+            </div>
+            <div className="flex justify-center mt-5">
               <button type="submit" className="px-4 py-2 bg-indigo-500 hover:bg-indigo-400 disabled:bg-slate-400 rounded-md shadow-lg text-white" disabled={isDisabled}>
-                Submit
+                Save
               </button>
             </div>
           </form>

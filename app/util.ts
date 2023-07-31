@@ -1,4 +1,5 @@
 export const createTimeStamp = (date: Date) => {
+  const timestamp = new Date(date)
   const options: Intl.DateTimeFormatOptions = {
     timeZone: 'America/Los_Angeles',
     year: 'numeric',
@@ -8,5 +9,5 @@ export const createTimeStamp = (date: Date) => {
     minute: '2-digit',
     hour12: true,
   };
-  return date.toLocaleString('en-US', options).slice(0, -8).replace(/-/g, '/').replace(/\/:/g, '').replace('T', ' ');
+  return new Intl.DateTimeFormat('en-US', options).format(timestamp).replace(',', '');
 }

@@ -4,10 +4,19 @@
 
 body {
   background: #f9ed4a;
+  padding: 28px
 }
 
 @media (prefers-color-scheme: dark) {
   body{
     background: #2E4053;
   }
+}
+
+.entry-card-content {
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
