@@ -1,1 +1,0 @@
-export const COHERE_TOKEN = process.env.COHERE_TOKEN;

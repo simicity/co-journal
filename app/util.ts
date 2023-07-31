@@ -8,6 +8,5 @@ export const createTimeStamp = (date: Date) => {
     minute: '2-digit',
     hour12: true,
   };
-
   return date.toLocaleString('en-US', options).slice(0, -8).replace(/-/g, '/').replace(/\/:/g, '').replace('T', ' ');
 }

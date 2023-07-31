@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { SessionProvider } from '../lib/sessionProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,12 +12,15 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  session
 }: {
   children: React.ReactNode
+  session: any
 }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <SessionProvider session={session}>
         <header className="flex justify-between mx-10 my-6">
           <Link href="/">
             <div className="font-extrabold text-white text-xl">
@@ -31,6 +35,7 @@ export default function RootLayout({
           </div>
         </header>
         {children}
+        </SessionProvider>
       </body>
     </html>
   )

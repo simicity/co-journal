@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background: #FCE4EC;
+  background: #f9ed4a;
 }
 
 @media (prefers-color-scheme: dark) {

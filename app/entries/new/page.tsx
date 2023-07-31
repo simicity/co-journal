@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from "next/navigation";
-import { COHERE_TOKEN } from '../../config';
 
 const reflectionPromptOptions = {
   method: 'POST',
@@ -11,7 +10,7 @@ const reflectionPromptOptions = {
   headers: {
     accept: 'application/json',
     'content-type': 'application/json',
-    authorization: COHERE_TOKEN,
+    authorization: process.env.COHERE_TOKEN
   },
   data: {
     max_tokens: 20,
@@ -49,7 +48,7 @@ export default function NewEntryPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.post('http://localhost:3000/api/entries', {
+    axios.post('/api/entries', {
       title: reflectionPrompt,
       content: content,
     })

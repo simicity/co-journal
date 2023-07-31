@@ -1,1 +1,0 @@
-export const COHERE_TOKEN = 'Bearer CxmJc1kp5pzWGtvLQx4fRlUOyKwLM2xvKcfVsfLO';

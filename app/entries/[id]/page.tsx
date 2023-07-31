@@ -14,7 +14,7 @@ export default function EntryPage({ params }: any) {
   const isDisabled = !content;
 
   const fetcher = (url: string) => axios.get(url).then(res => res.data);
-  const { data: entry, error, isLoading } = useSWR(`http://localhost:3000/api/entries/${params.id}`, fetcher);
+  const { data: entry, error, isLoading } = useSWR(`/api/entries/${params.id}`, fetcher);
   if (isLoading) return <div className="m-6">Loading...</div>;
   if (error) return <div className="m-6">failed to load</div>;
 
@@ -30,7 +30,7 @@ export default function EntryPage({ params }: any) {
   const handleUpdate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(content);
-    axios.put(`http://localhost:3000/api/entries/${entry.id}`, {
+    axios.put(`/api/entries/${entry.id}`, {
       content: content,
     })
     .then(function (response) {
@@ -44,7 +44,7 @@ export default function EntryPage({ params }: any) {
   };
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:3000/api/entries/${params.id}`)
+    axios.delete(`/api/entries/${params.id}`)
     .then(function (response) {
       // console.log(response);
       router.push("entries");
