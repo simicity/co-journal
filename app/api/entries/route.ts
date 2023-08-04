@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   await prisma.entry.create({ data: {
     title: title,
     content: content, 
-    published: res.published ?? false,
+    published: res.published,
     author: { connect: { email: session.user.email } }
   } });
   return NextResponse.json({});
