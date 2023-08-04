@@ -63,7 +63,7 @@ export default function EntryPage({ params }: any) {
     axios.delete(`/api/entries/${params.id}`)
     .then(function (response) {
       // console.log(response);
-      router.push("entries");
+      router.push("entries/user");
     })
     .catch(function (error) {
       console.log(error);
@@ -74,7 +74,7 @@ export default function EntryPage({ params }: any) {
     <div className="m-6">
       <div className="flex justify-between">
         <div className="my-auto">
-          <Link href="/entries" className="flex m-4 text-slate-600 dark:text-slate-300">
+          <Link href="/entries/user" className="flex m-4 text-slate-600 dark:text-slate-300">
             <IconReturnUpBack />
             <span className="ml-2">Back</span>
           </Link>
