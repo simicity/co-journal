@@ -5,11 +5,19 @@ import Link from "next/link";
 import { useState } from "react";
 import Image from 'next/image';
 import logo from '@/public/logo.png';
+import { useRouter } from "next/navigation";
 
 export default function EntriesPage() {
   const {data: session, status} = useSession();
+  const router = useRouter();
   const [showDropdownMenu, setShowDropdownMenu] = useState(false);
   const toggleDropdownMenu = () => setShowDropdownMenu(!showDropdownMenu);
+
+  const handleSignOut = () => {
+    toggleDropdownMenu();
+    signOut();
+    router.push('/');
+  }
 
   return (
     <header className="flex justify-between mb-8">
@@ -53,7 +61,7 @@ export default function EntriesPage() {
                       <Link href="#" onClick={() => toggleDropdownMenu()} className="block px-4 py-2 text-sm hover:bg-slate-200 dark:hover:bg-slate-800" role="menuitem">
                         Account settings
                       </Link>
-                      <button type="submit" onClick={() => { toggleDropdownMenu(); signOut(); }} className="block w-full px-4 py-2 text-left text-sm hover:bg-slate-200 dark:hover:bg-slate-800" role="menuitem">
+                      <button type="submit" onClick={ handleSignOut } className="block w-full px-4 py-2 text-left text-sm hover:bg-slate-200 dark:hover:bg-slate-800" role="menuitem">
                         Log out
                       </button>
                     </div>

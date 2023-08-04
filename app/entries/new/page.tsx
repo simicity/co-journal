@@ -54,7 +54,7 @@ export default function NewEntryPage() {
     axios.post('/api/entries', {
       title: reflectionPrompt,
       content: content,
-      publish: isPublished
+      published: isPublished
     })
     .then(function (response) {
       // console.log(response);
