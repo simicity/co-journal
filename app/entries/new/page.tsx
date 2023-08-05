@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from "next/navigation";
 import IconArrowRepeat from '@/components/icons/IconArrowRepeat';
+import { useSession } from 'next-auth/react';
 
 const reflectionPromptOptions = {
   method: 'POST',
@@ -21,14 +22,16 @@ const reflectionPromptOptions = {
   }
 };
 
+const loadingMessage = "Fetching prompt...";
 const errorMessage = "Oops! Something went wrong. Please try again.";
 
 export default function NewEntryPage() {
+  const { data: session, status, update } = useSession();
   const router = useRouter();
-  const [reflectionPrompt, setReflectionPrompt] = useState("Fetching prompt...");
+  const [reflectionPrompt, setReflectionPrompt] = useState(loadingMessage);
   const [content, setContent] = useState("");
   const [isPublished, setIsPublished] = useState(false);
-  const textareaDisabled = reflectionPrompt === errorMessage;
+  const textareaDisabled = reflectionPrompt === loadingMessage || reflectionPrompt === errorMessage || status != "authenticated";
   const isDisabled = !content || textareaDisabled;
   const [textareaHeight, setTextareaHeight] = useState(200);
 
@@ -58,7 +61,7 @@ export default function NewEntryPage() {
     })
     .then(function (response) {
       // console.log(response);
-      router.push("entries");
+      router.push("/entries");
     })
     .catch(function (error) {
       console.log(error);
@@ -94,6 +97,12 @@ export default function NewEntryPage() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (status != "authenticated") {
+      window.alert("Please log in to write an entry.");
+    }
+  }, [status]);
 
   return (
     <main className="flex h-full flex-col items-center justify-between">

@@ -14,9 +14,11 @@ import IconReturnUpBack from "@/components/icons/IconReturnUpBack";
 import IconEdit from "@/components/icons/IconEdit";
 import IconDelete from "@/components/icons/IconDelete";
 import IconCancel from "@/components/icons/IconCancel";
+import { useSession } from "next-auth/react";
 
 export default function EntryPage({ params }: any) {
-  const router = useRouter();
+  const { data: session, status, update } = useSession();
+  const router = useRouter()
   const [isEdit, setEdit] = useState(false);
   const [content, setContent] = useState("");
   const [isPublished, setIsPublished] = useState(false);
@@ -50,7 +52,6 @@ export default function EntryPage({ params }: any) {
       published: isPublished
     })
     .then(function (response) {
-      // console.log(response);
       entry.content = content;
       setEdit(false);
     })
@@ -62,8 +63,7 @@ export default function EntryPage({ params }: any) {
   const handleDelete = () => {
     axios.delete(`/api/entries/${params.id}`)
     .then(function (response) {
-      // console.log(response);
-      router.push("entries/user");
+      router.push("/entries/user");
     })
     .catch(function (error) {
       console.log(error);
@@ -79,20 +79,22 @@ export default function EntryPage({ params }: any) {
             <span className="ml-2">Back</span>
           </Link>
         </div>
-        <div>
-          <button className="m-4 text-slate-600 dark:text-slate-300" onClick={handleEdit}>
-            <div className="flex flex-row my-auto">
-              {isEdit ? <IconCancel /> : <IconEdit />}
-              <span className="ml-1">{isEdit ? "Cancel" : "Edit"}</span>
-            </div>
-          </button>
-          <button className="m-4 text-slate-600 dark:text-slate-300" onClick={handleDelete}>
-            <div className="flex flex-row my-auto">
-              <IconDelete />
-              <span className="ml-1">Delete</span>
-            </div>
-          </button>
-        </div>
+        {session && session.user && session.user.id === entry.authorId && (
+          <div>
+            <button className="m-4 text-slate-600 dark:text-slate-300" onClick={handleEdit}>
+              <div className="flex flex-row my-auto">
+                {isEdit ? <IconCancel /> : <IconEdit />}
+                <span className="ml-1">{isEdit ? "Cancel" : "Edit"}</span>
+              </div>
+            </button>
+            <button className="m-4 text-slate-600 dark:text-slate-300" onClick={handleDelete}>
+              <div className="flex flex-row my-auto">
+                <IconDelete />
+                <span className="ml-1">Delete</span>
+              </div>
+            </button>
+          </div>
+        )}
       </div>
       <div className="block rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-800">
         <div className="flex justify-between">

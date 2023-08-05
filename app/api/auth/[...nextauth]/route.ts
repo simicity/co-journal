@@ -10,6 +10,15 @@ export const authOptions: AuthOptions = {
             clientSecret: process.env.GOOGLE_SECRET as string,
         })
     ],
+    callbacks: {
+        async session({ session, token, user }) {
+            // Send properties to the client, like an access_token and user id from a provider.
+            if(user.id) {
+                session.user.id = user.id
+            }
+            return session
+        }
+    },
     adapter: PrismaAdapter(prisma),
     secret: process.env.NEXTAUTH_SECRET,
 };

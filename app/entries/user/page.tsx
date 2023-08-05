@@ -7,8 +7,16 @@ import axios from 'axios';
 import useSWR from "swr";
 import FailLoading from "@/components/FailLoading";
 import NoEntry from "@/components/NoEntry";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default function EntriesPage() {
+  const { data: session, status, update } = useSession();
+
+  if (status != "authenticated") {
+    redirect('/');
+  }
+
   const fetcher = (url: string) => axios.get(url).then(res => res.data);
   const { data: entries, error, isLoading } = useSWR(`/api/entries`, fetcher);
   if (isLoading) return <Loading />;
