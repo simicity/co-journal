@@ -11,17 +11,14 @@ export default function EntryCard({ entry }: { entry: EntryData }) {
         <div className="flex justify-between">
           <div>
             <p className="text-xs text-neutral-600 dark:text-neutral-200">
-              Created: {createTimeStamp(entry.createdAt)}
-            </p>
-            <p className="text-xs text-neutral-600 dark:text-neutral-200">
-              Modified: {createTimeStamp(entry.modifiedAt)}
+              Last Updated: {createTimeStamp(entry.modifiedAt)}
             </p>
           </div>
           <div className="text-neutral-600 dark:text-neutral-200">
             {entry.published ? (
-              <IconPeopleFill />
+              <IconPeopleFill size={"15px"} />
             ) : (
-              <IconEyeOff />
+              <IconEyeOff size={"15px"} />
             )}
           </div>
         </div>

@@ -1,11 +1,11 @@
 // icon:return-up-back | Ionicons https://ionicons.com/ | Ionic Framework
-export default function IconReturnUpBack() {
+export default function IconReturnUpBack({ size }: { size: string }) {
   return (
     <svg
       viewBox="0 0 512 512"
       fill="currentColor"
-      height="20px"
-      width="20px"
+      height={size}
+      width={size}
     >
       <path
         fill="none"

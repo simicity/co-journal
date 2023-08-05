@@ -1,11 +1,11 @@
 // icon:people-fill | Bootstrap https://icons.getbootstrap.com/ | Bootstrap
-export default function IconPeopleFill() {
+export default function IconPeopleFill({ size }: { size: string }) {
   return (
     <svg
       stroke="currentColor"
       viewBox="0 0 16 16"
-      height="1.4em"
-      width="1.4em"
+      height={size}
+      width={size}
     >
       <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 100-6 3 3 0 000 6z" />
       <path

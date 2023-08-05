@@ -75,7 +75,7 @@ export default function EntryPage({ params }: any) {
       <div className="flex justify-between">
         <div className="my-auto">
           <Link href="/entries/user" className="flex m-4 text-slate-600 dark:text-slate-300">
-            <IconReturnUpBack />
+            <IconReturnUpBack size={"20px"} />
             <span className="ml-2">Back</span>
           </Link>
         </div>
@@ -83,13 +83,13 @@ export default function EntryPage({ params }: any) {
           <div>
             <button className="m-4 text-slate-600 dark:text-slate-300" onClick={handleEdit}>
               <div className="flex flex-row my-auto">
-                {isEdit ? <IconCancel /> : <IconEdit />}
+                {isEdit ? <IconCancel size={"20px"} /> : <IconEdit size={"20px"} />}
                 <span className="ml-1">{isEdit ? "Cancel" : "Edit"}</span>
               </div>
             </button>
             <button className="m-4 text-slate-600 dark:text-slate-300" onClick={handleDelete}>
               <div className="flex flex-row my-auto">
-                <IconDelete />
+                <IconDelete size={"20px"} />
                 <span className="ml-1">Delete</span>
               </div>
             </button>
@@ -100,17 +100,14 @@ export default function EntryPage({ params }: any) {
         <div className="flex justify-between">
           <div>
             <p className="text-xs text-neutral-600 dark:text-neutral-200">
-              Created: {createTimeStamp(entry.createdAt)}
-            </p>
-            <p className="text-xs text-neutral-600 dark:text-neutral-200">
-              Modified: {createTimeStamp(entry.modifiedAt)}
+              Last Updated: {createTimeStamp(entry.modifiedAt)}
             </p>
           </div>
           <div className="text-neutral-600 dark:text-neutral-200">
             {entry.published ? (
-              <IconPeopleFill />
+              <IconPeopleFill size={"20px"} />
             ) : (
-              <IconEyeOff />
+              <IconEyeOff size={"20px"} />
             )}
           </div>
         </div>

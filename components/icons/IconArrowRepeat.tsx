@@ -1,11 +1,11 @@
 // icon:arrow-repeat | Bootstrap https://icons.getbootstrap.com/ | Bootstrap
-export default function IconArrowRepeat() {
+export default function IconArrowRepeat({ size }: { size: string }) {
   return (
     <svg
       fill="currentColor"
       viewBox="0 0 16 16"
-      height="23px"
-      width="23px"
+      height={size}
+      width={size}
     >
       <path d="M11.534 7h3.932a.25.25 0 01.192.41l-1.966 2.36a.25.25 0 01-.384 0l-1.966-2.36a.25.25 0 01.192-.41zm-11 2h3.932a.25.25 0 00.192-.41L2.692 6.23a.25.25 0 00-.384 0L.342 8.59A.25.25 0 00.534 9z" />
       <path

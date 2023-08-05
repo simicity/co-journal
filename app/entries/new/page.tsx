@@ -112,7 +112,7 @@ export default function NewEntryPage() {
             {reflectionPrompt}
           </p>
           <button className="ml-8 mr-4 my-auto" onClick={handleClick}>
-            <IconArrowRepeat />
+            <IconArrowRepeat size={"23px"} />
           </button>
         </div>
         <hr className="h-1 w-full mx-auto border-dashed my-5 border-black dark:border-white" />
