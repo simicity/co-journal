@@ -1,7 +1,7 @@
 import prisma from "../../../../lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, { params }: { params: { id: number } }) {
+export async function GET(req: Request, { params }: { params: { id: string } }) {
   const id = params.id;
   if(!id || typeof id !== "string"){
     throw new Error("Invalid id");
@@ -10,17 +10,18 @@ export async function GET(request: Request, { params }: { params: { id: number }
   return NextResponse.json(entry);
 }
 
-export async function PUT(request: Request, { params }: { params: { id: number } }) {
-  const res = await request.json();
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
+  const {
+    content,
+    published
+  } = await req.json();
   const id = params.id;
   if(!id || typeof id !== "string") {
     throw new Error("Invalid id");
   }
-  const content = res.content;
   if(typeof content !== "string" || content.length === 0) {
     throw new Error("Invalid content");
   }
-  const published = res.published;
   if(typeof published != "boolean") {
     throw new Error("Invalid published flag")
   }
@@ -36,7 +37,7 @@ export async function PUT(request: Request, { params }: { params: { id: number }
   return NextResponse.json({});
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: number } }) {
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
   const id = params.id;
   if(!id || typeof id !== "string"){
     throw new Error("Invalid id");
